@@ -2,11 +2,14 @@ package com.example.Patas.service;
 
 import com.example.Patas.controller.form.TaskForm;
 import com.example.Patas.repository.Entity.Task;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EditService {
+    @Autowired
+    TaskRepository taskRepository;
 
     List<Task> results = TaskRepository.findById(id).orElse(null);
     List<TaskForm> tasks = setTaskForm(results);

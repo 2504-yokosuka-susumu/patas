@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-@Autowired
-EditService editService;
-
 public class EditServlet {
+    @Autowired
+    EditService editService;
+
     /*
      *編集画面表示
      */
