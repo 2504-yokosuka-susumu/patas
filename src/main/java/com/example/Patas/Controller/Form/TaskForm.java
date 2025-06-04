@@ -1,4 +1,4 @@
-package com.example.Patas.Controller.Form;
+package com.example.Patas.controller.form;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
