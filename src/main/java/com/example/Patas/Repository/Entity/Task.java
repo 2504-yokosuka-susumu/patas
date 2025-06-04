@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -25,12 +26,12 @@ public class Task {
     @Column
     private int status;
 
-    @Column
-    private Date limitDate;
+    @Column(name = "limit_date")
+    private Timestamp limitDate;
 
-    @Column
-    private Date createdDate;
+    @Column(insertable = false, updatable = false, name="created_date")
+    private Timestamp createdDate;
 
-    @Column
-    private Date updatedDate;
+    @Column(insertable = false, name="updated_date")
+    private Timestamp updatedDate;
 }
