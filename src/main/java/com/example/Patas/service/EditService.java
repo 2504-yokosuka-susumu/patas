@@ -2,15 +2,16 @@ package com.example.Patas.service;
 
 
 import com.example.Patas.controller.form.TaskForm;
-import com.example.Patas.repository.entity.Task;
 import com.example.Patas.repository.TaskRepository;
+import com.example.Patas.repository.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
+@Service
 public class EditService {
     @Autowired
     TaskRepository taskRepository;

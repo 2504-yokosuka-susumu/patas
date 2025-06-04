@@ -3,14 +3,21 @@ package com.example.Patas.controller;
 import com.example.Patas.controller.form.TaskForm;
 import com.example.Patas.service.EditService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
 public class EditServlet {
     @Autowired
     EditService editService;
@@ -19,18 +26,31 @@ public class EditServlet {
      *編集画面表示
      */
     @GetMapping("/edit/{id}")
-    public ModelAndView editTask(@PathVariable("id") Integer id){
+    public ModelAndView editTask(@Validated @PathVariable("id") Integer id, BindingResult result,
+                                 RedirectAttributes redirectAttributes){
         ModelAndView mav = new ModelAndView();
 
-        TaskForm taskForm = new TaskForm();
+        if(result.hasErrors()){
+            List<String> errorMessages = new ArrayList<String>();
+            //resultからデフォルトのエラーメッセージを取得
+            //入っているerrorsの分だけ回してListに詰める(今回は「不正なパラメータです」のみだが、増えた時を考えてリスト)
+            for(ObjectError error : result.getAllErrors()){
+                errorMessages.add(error.getDefaultMessage());
+            }
+            redirectAttributes.addFlashAttribute("errorMessages", errorMessages);
 
-        TaskForm editData = editService.editTask(id);
+            return new ModelAndView("redirect:/");
+        }else{
+            TaskForm taskForm = new TaskForm();
 
-        mav.setViewName("/edit");
-        // selectしてきた編集対象の投稿データを保管
-        mav.addObject("formModel", editData);
+            TaskForm editData = editService.editTask(id);
 
-        return mav;
+            mav.setViewName("/edit");
+            //selectしてきた編集対象の投稿データを保管
+            mav.addObject("formModel", editData);
+
+            return mav;
+        }
     }
 
     @PutMapping("/update/{id}")
@@ -39,6 +59,8 @@ public class EditServlet {
 
         if(result.hasErrors()){
             ModelAndView mav = new ModelAndView();
+
+
             mav.addObject("formModel", task);
             mav.setViewName("/edit");
             return mav;
