@@ -6,6 +6,7 @@ import com.example.Patas.repository.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Service
@@ -28,8 +29,8 @@ public class AddService {
         Task task = new Task();
         task.setId(reqTask.getId());
         task.setContent(reqTask.getContent());
-        task.setCreatedDate(reqTask.getCreatedDate());
-        task.setUpdatedDate(new Date());
+        task.setCreatedDate((Timestamp) reqTask.getCreatedDate());
+        task.setUpdatedDate((Timestamp) new Date());
         return task;
     }
 }
