@@ -45,9 +45,15 @@ public class EditServlet {
 
             TaskForm editData = editService.editTask(id);
 
-            mav.setViewName("/edit");
-            //selectしてきた編集対象の投稿データを保管
-            mav.addObject("formModel", editData);
+            if(editData != null) {
+                mav.setViewName("/edit");
+                //selectしてきた編集対象の投稿データを保管
+                mav.addObject("formModel", editData);
+            }else{
+                String error = "不正なパラメータです";
+                redirectAttributes.addFlashAttribute("error", error);
+                mav.setViewName("redirect:/");
+            }
 
             return mav;
         }
