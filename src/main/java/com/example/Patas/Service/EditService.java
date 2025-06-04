@@ -1,4 +1,4 @@
-package com.example.Patas.Service;
+package com.example.Patas.service;
 
 public class EditService {
 }

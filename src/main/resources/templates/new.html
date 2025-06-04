@@ -16,18 +16,13 @@
             <label>タスク内容</label>
             <textarea class="tweet-box" th:field="*{content}" size="20" maxlength="200" /></textarea><br/>
             <label>タスク期限</label>
-            <textarea class="tweet-box" th:field="*{content}" size="20" maxlength="200" /></textarea><br/>
+            <textarea class="date" th:field="*{content}" size="20" maxlength="100" /></textarea><br/>
             <input type="submit" value="追加" />
-        </div>
-        <div >
-
         </div>
     </form>
 </div>
 <div class="footer-contents">
-    <form action="/">
-        <input type="submit" value="戻る" />
-    </form>
+    <a th:href="@{./}">戻る</a>
 </div>
 </body>
 </html>

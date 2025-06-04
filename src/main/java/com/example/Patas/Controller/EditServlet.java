@@ -1,4 +1,4 @@
-package com.example.Patas.Controller;
+package com.example.Patas.controller;
 
 public class EditServlet {
 }
