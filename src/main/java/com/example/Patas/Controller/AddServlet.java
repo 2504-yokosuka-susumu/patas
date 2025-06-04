@@ -43,7 +43,7 @@ public class AddServlet {
             return mav;
         } else {
             // 投稿をテーブルに格納
-            //addService.saveReport(taskForm);
+            addService.saveTask(taskForm);
             // rootへリダイレクト
             return new ModelAndView("redirect:/");
         }

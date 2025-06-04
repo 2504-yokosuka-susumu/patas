@@ -16,8 +16,9 @@
             <label>タスク内容</label>
             <textarea class="tweet-box" th:field="*{content}" size="20" maxlength="200" /></textarea><br/>
             <label>タスク期限</label>
-            <textarea class="date" th:field="*{content}" size="20" maxlength="100" /></textarea><br/>
-            <input type="submit" value="追加" />
+            <textarea id="display">ここに表示</textarea>
+            <input id="datepicker" type="hidden">
+<!--            <input type="submit" value="追加" />-->
         </div>
     </form>
 </div>
