@@ -66,7 +66,6 @@ public class EditServlet {
         if(result.hasErrors()){
             ModelAndView mav = new ModelAndView();
 
-
             mav.addObject("formModel", task);
             mav.setViewName("/edit");
             return mav;
