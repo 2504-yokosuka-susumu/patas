@@ -40,7 +40,7 @@
                             th:text="${choice.value}" th:selected="${choice.key == task.status}"></option>
                 </select>
                 <input type="hidden" value="${task.id}" name="id">
-                <input type="submit" value="変更">
+                <button type="submit" onclick="return confirm('変更しますか？');">変更</button>
             </div>
         </form>
 
