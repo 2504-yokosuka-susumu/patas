@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -29,10 +31,13 @@ public class TopServlet {
         ModelAndView mav = new ModelAndView();
         // 返信form用の空のentityを準備
         TaskForm tasksForm = new TaskForm();
-        // 投稿を全件取得 日付検索に変えた
+        // 投稿を全件取得
         List<TaskForm> taskData = taskService.findAllTask();
         //エラーメッセージを取得
         mav.addObject("mavErrorMessages", session.getAttribute("errorMessages"));
+        //タスクステータスリスト作成
+
+
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
         String today = new SimpleDateFormat("yyyy-MM-dd").format(currentTimestamp);
         session.invalidate();
