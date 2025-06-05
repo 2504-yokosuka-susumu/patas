@@ -28,9 +28,11 @@ public class AddService {
     private Task setTaskEntity(TaskForm reqTask) {
         Task task = new Task();
         task.setId(reqTask.getId());
+        task.setStatus((1));
         task.setContent(reqTask.getContent());
-        task.setCreatedDate((Timestamp) reqTask.getCreatedDate());
-        task.setUpdatedDate((Timestamp) new Date());
+        task.setLimitDate(reqTask.getLimitDate());
+        task.setCreatedDate(reqTask.getCreatedDate());
+        task.setUpdatedDate(reqTask.getUpdatedDate());
         return task;
     }
 }
