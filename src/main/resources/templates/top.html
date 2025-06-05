@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link th:href="@{/css/style.css}" rel="styleSheet">
+    <title>TOP画面</title>
 </head>
 <body>
-
+    <h1>ToDo</h1>
+    <div>
+        本日の日付<p th:text="${today}"></p>
+    </div>
+    <form action="/new" method="get">
+        <input type="submit" value="新規タスク">
+    </form>
+    <form>
+        <div class="form-area">
+            期限<textarea size="10"></textarea>～<textarea size="10"></textarea>
+            <input type="submit" value="絞込">
+        </div>
+    </form>
+    <a href="/edit/1">編集画面遷移（id=1）</a>
+    <div class="task-area" th:each="task : ${formTask}">
+        未着手タスク<select name="status" value="*{status}">
+        <option>未着手</option>
+        <option>実行中</option>
+        <option>ステイ中</option>
+        <option>完了</option>
+    </select>
+    </div>
 </body>
 </html>
