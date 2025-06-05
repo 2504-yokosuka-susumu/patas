@@ -36,7 +36,11 @@ public class TopServlet {
         //エラーメッセージを取得
         mav.addObject("mavErrorMessages", session.getAttribute("errorMessages"));
         //タスクステータスリスト作成
-
+        HashMap<Integer,String> choicesMap= new HashMap<Integer,String>();
+        choicesMap.put(1,"未着手");
+        choicesMap.put(2,"実行中");
+        choicesMap.put(3,"ステイ中");
+        choicesMap.put(4,"完了");
 
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
         String today = new SimpleDateFormat("yyyy-MM-dd").format(currentTimestamp);
@@ -47,6 +51,7 @@ public class TopServlet {
         mav.addObject("formTask", tasksForm);
         mav.addObject("tasks", taskData);
         mav.addObject("today", today);
+        mav.addObject("choices", choicesMap);
 
         return mav;
     }

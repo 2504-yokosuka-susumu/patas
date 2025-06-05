@@ -130,3 +130,9 @@ label {
 	margin-left: 10px;
 	color: red;
 }
+
+.task-area {
+display: flex;
+justify-content: start;
+vertical-align: middle;
+}
