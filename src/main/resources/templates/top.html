@@ -30,17 +30,17 @@
     </form>
     <div class="task-area" th:each="task : ${tasks}">
         <p th:text="${task.content}"></p>
-        <div>
-            <select name="status">
-                <option th:each="choice : ${choices}" th:value="${choice.key}"
-                        th:text="${choice.value}" th:selected="${choice.key == task.status}"></option>
-            </select>
-        </div>
-        <div class="edit-button">
-            <a th:href="@{/change/{id}/{status}(id=${task.id}, status=${task.status})}">
-                <input type="button" value="変更">
-            </a>
-        </div>
+        <form action="/change" method="post">
+            <div class="change-form">
+                <select name="status">
+                    <option th:each="choice : ${choices}" th:value="${choice.key}"
+                            th:text="${choice.value}" th:selected="${choice.key == task.status}"></option>
+                </select>
+                <input type="hidden" value="${task.id}" name="id">
+                <input type="submit" value="変更">
+            </div>
+        </form>
+
         <div class="task-limit">
             <p th:text="${#strings.substring(task.limitDate, 0, 11)}"></p>
         </div>
