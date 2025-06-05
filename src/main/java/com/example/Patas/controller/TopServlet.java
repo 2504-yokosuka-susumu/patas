@@ -2,6 +2,7 @@ package com.example.Patas.controller;
 
 import com.example.Patas.controller.form.TaskForm;
 import com.example.Patas.service.TaskService;
+import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +33,7 @@ public class TopServlet {
     @GetMapping
     public ModelAndView top(@ModelAttribute("formTask")TaskForm tasksForm,
                             @RequestParam(value="start", required = false)String start,
-                            @RequestParam(value = "end", required = false)String end) {
+                            @RequestParam(value = "end", required = false)String end) throws ParseException {
         ModelAndView mav = new ModelAndView();
 
 //        if(tasksForm == null){
@@ -53,6 +55,23 @@ public class TopServlet {
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
         String today = new SimpleDateFormat("yyyy-MM-dd").format(currentTimestamp);
         session.invalidate();
+
+        // 絞り込み処理
+
+        if (StringUtils.isNotBlank(start)) {
+            start = start + " 00:00:00";
+        } else {
+            start = "2020-01-01 00:00:00";
+        }
+        if (StringUtils.isNotBlank(end)) {
+            end = end + " 23:59:59";
+        } else {
+            end = "2100-12-31 23:59:59";
+        }
+
+        // 投稿を取得
+        taskData = taskService.findSerchTask(start, end, tasksForm);
+
         // 画面遷移先を指定
         mav.setViewName("/top");
         // 投稿データオブジェクトを保管

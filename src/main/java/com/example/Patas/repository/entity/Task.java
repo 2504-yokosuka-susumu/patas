@@ -18,7 +18,7 @@ public class Task {
     private String content;
 
     @Column
-    private int status;
+    private Integer status;
 
     @Column(name = "limit_date")
     private Date limitDate;
