@@ -136,3 +136,9 @@ display: flex;
 justify-content: start;
 vertical-align: middle;
 }
+
+.form-area{
+display: flex;
+justify-content: start;
+vertical-align: middle;
+}
