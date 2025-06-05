@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,9 +21,9 @@ public class EditService {
 
         List<Task> results = new ArrayList<>();
         results.add((Task) taskRepository.findById(id).orElse(null));
-        List<TaskForm> reports = setTaskForm(results);
+        List<TaskForm> tasks = setTaskForm(results);
 
-        return reports.get(0);
+        return tasks.get(0);
     }
 
     private List<TaskForm> setTaskForm(List<Task> results) {
@@ -33,7 +34,8 @@ public class EditService {
             Task result = results.get(i);
             task.setId(result.getId());
             task.setContent(result.getContent());
-            task.setLimitDate(result.getCreatedDate());
+            task.setLimitDate(result.getLimitDate());
+            tasks.add(task);
         }
         return tasks;
     }
@@ -50,7 +52,8 @@ public class EditService {
         Task task = new Task();
         task.setId(reqTask.getId());
         task.setContent(reqTask.getContent());
-        task.setLimitDate((Timestamp) reqTask.getLimitDate());
+        task.setLimitDate(reqTask.getLimitDate());
+        task.setUpdatedDate(new Date());
         return task;
     }
 }

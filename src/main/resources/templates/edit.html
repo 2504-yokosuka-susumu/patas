@@ -5,24 +5,24 @@
     <link th:href="@{/css/style.css}" rel="styleSheet">
     <title>タスク編集</title>
 </head>
-<!--<body>-->
-<!--<div class="main-contents">-->
-<!--&lt;!&ndash;    <form th:method="put" th:action="@{/update/{id}(id=${formModel.id})}" th:object="${formModel}">&ndash;&gt;-->
-<!--        <div class="form-area">-->
-<!--            <label>タスク編集</label>-->
-<!--            <textarea class="tweet-box" th:field="*{content}" size="20" maxlength="140" /></textarea><br/>-->
-<!--            <label>タスク期限</label>-->
-<!--            <input type="date" th:field="*{limitDate}" />-->
-<!--            <input type="submit" value="編集" />-->
-<!--            <span th:errors="*{content}" style="color:red"></span>-->
-<!--            <span th:errors="*{limitDate}" style="color:red"></span>-->
-<!--        </div>-->
-<!--    </form>-->
-<!--</div>-->
-<!--<div class="footer-contents">-->
-<!--    <form action="/">-->
-<!--        <input type="submit" value="戻る" />-->
-<!--    </form>-->
-<!--</div>-->
-<!--</body>-->
+<body>
+<div class="main-contents">
+    <form th:method="post" th:action="@{/update/{id}(id=${formModel.id})}" th:object="${formModel}">
+        <div class="form-area">
+            <label>タスク編集</label>
+            <textarea class="tweet-box" th:field="*{content}" size="20" maxlength="140" /></textarea><br/>
+            <label>タスク期限</label>
+            <input type="date" th:field="*{limitDate}" />
+            <input type="submit" value="編集" />
+            <span th:errors="*{content}" style="color:red"></span>
+            <span th:errors="*{limitDate}" style="color:red"></span>
+        </div>
+    </form>
+</div>
+<div class="footer-contents">
+    <form action="/">
+        <input type="submit" value="戻る" />
+    </form>
+</div>
+</body>
 </html>
