@@ -47,6 +47,7 @@ public class TopServlet {
         mav.addObject("mavErrorMessages", session.getAttribute("errorMessages"));
         //タスクステータスリスト作成
         HashMap<Integer,String> choicesMap= new HashMap<Integer,String>();
+        choicesMap.put(0,null);
         choicesMap.put(1,"未着手");
         choicesMap.put(2,"実行中");
         choicesMap.put(3,"ステイ中");
