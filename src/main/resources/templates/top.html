@@ -29,7 +29,7 @@
         </div>
     </form>
     <div class="task-area" th:each="task : ${tasks}">
-        <p th:text="${choices[task.status]+'タスク'}"></p>
+        <p th:text="${task.content}"></p>
         <div>
             <select name="status">
                 <option th:each="choice : ${choices}" th:value="${choice.key}"
@@ -37,12 +37,12 @@
             </select>
         </div>
         <div class="edit-button">
-            <a th:href="@{/edit/{id}(id=${task.id})}">
-                <input type="button" value="編集">
+            <a th:href="@{/change/{statusNum}(id=${task.status})}">
+                <input type="button" value="変更">
             </a>
         </div>
         <div class="task-limit">
-            <p th:text="'タスク期限 ' +${#strings.substring(task.limitDate, 0, 11)}"></p>
+            <p th:text="${#strings.substring(task.limitDate, 0, 11)}"></p>
         </div>
         <div class="edit-button">
             <a th:href="@{/edit/{id}(id=${task.id})}">
@@ -50,7 +50,7 @@
             </a>
         </div>
         <div class="delete-button">
-            <a th:href="@{/delete/{id}(id=${task.id})}">
+            <a th:href="@{/delete/{id}(id=${task.id})}" th:method="delete">
                 <input type="button" value="削除">
             </a>
         </div>
