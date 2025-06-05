@@ -13,6 +13,7 @@
             <textarea class="tweet-box" th:field="*{content}" size="20" maxlength="140" /></textarea><br/>
             <label>タスク期限</label>
             <input type="date" th:field="*{limitDate}" />
+            <input type="hidden" th:field="*{status}">
             <input type="submit" value="編集" />
             <span th:errors="*{content}" style="color:red"></span>
             <span th:errors="*{limitDate}" style="color:red"></span>
