@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1>ToDo</h1>
+    <th:block th:if="${errorMessage != null && !errorMessage.isEmpty()}">
+        <span th:text="${errorMessage}" style="color:red"></span>
+    </th:block>
     <div>
         本日の日付<p th:text="${today}"></p>
     </div>
@@ -38,7 +41,7 @@
         </div>
         <div class="edit-button">
             <a th:href="@{/change/{id}/{status}(id=${task.id}, status=${task.status})}">
-                <input type="button" value="変更">
+                <button type="submit" onclick="return confirm('変更しますか？');">変更</button>
             </a>
         </div>
         <div class="task-limit">
@@ -50,9 +53,9 @@
             </a>
         </div>
         <div class="delete-button">
-            <a th:href="@{/delete/{id}(id=${task.id})}" th:method="delete">
-                <input type="button" value="削除">
-            </a>
+            <form th:action="@{/delete/{id}(id=${task.id})}" th:method="delete">
+                <button type="submit" onclick="return confirm('削除しますか？');">削除</button>
+            </form>
         </div>
     </div>
 </body>

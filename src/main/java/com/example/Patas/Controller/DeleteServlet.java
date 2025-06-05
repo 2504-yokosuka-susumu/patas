@@ -14,8 +14,7 @@ public class DeleteServlet {
     DeleteService deleteService;
 
     @DeleteMapping("/delete/{id}")
-    public ModelAndView deleteUserOne(@PathVariable("id") Integer id) {
-
+    public ModelAndView deleteTaskOne(@PathVariable("id") Integer id) {
         // 特定のタスクの削除
         deleteService.delete(id);
         return new ModelAndView("redirect:/");

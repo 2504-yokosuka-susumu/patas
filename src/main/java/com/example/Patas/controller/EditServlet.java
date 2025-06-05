@@ -32,7 +32,6 @@ public class EditServlet {
         ModelAndView mav = new ModelAndView();
 
         if (!StringUtils.isBlank(taskId) && taskId.matches("^[0-9]*$")){
-            TaskForm taskForm = new TaskForm();
             int id = Integer.parseInt(taskId);
             TaskForm editData = editService.editTask(id);
             if (editData != null) {

@@ -6,6 +6,7 @@ import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +34,8 @@ public class TopServlet {
     @GetMapping
     public ModelAndView top(@ModelAttribute("formTask")TaskForm tasksForm,
                             @RequestParam(value="start", required = false)String start,
-                            @RequestParam(value = "end", required = false)String end) throws ParseException {
+                            @RequestParam(value = "end", required = false)String end,
+                            Model model) throws ParseException {
         ModelAndView mav = new ModelAndView();
 
 //        if(tasksForm == null){
@@ -83,6 +85,10 @@ public class TopServlet {
         mav.addObject("start", start);
         mav.addObject("end", end);
 
+        String errorMessage = (String)model.getAttribute("error");
+        if(errorMessage != null){
+            mav.addObject("errorMessage", errorMessage);
+        }
 
         return mav;
     }
