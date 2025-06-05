@@ -13,20 +13,21 @@
     <form action="/new" method="get">
         <input type="submit" value="新規タスク">
     </form>
-    <form>
+    <form action="/" method="get" th:object="${formTask}">
         <div class="form-area">
             期限<input type="date" name="start" th:value="${start}">～<input type="date" name="end" th:value="${end}">
-            ステータス<select name="status" value="${task.status}">
-            <option>未着手</option>
-            <option>実行中</option>
-            <option>ステイ中</option>
-            <option>完了</option>
+            ステータス<div>
+            <select name="status" th:field="*{status}">
+                <option th:each="choice : ${choices}" th:value="${choice.key}"
+                        th:text="${choice.value}" ></option>
             </select>
-            タスク内容<textarea class="search-text" size="10"></textarea>
+            </div>
+            <div>
+                タスク内容<textarea class="search-text" size="10" th:field="*{content}"></textarea>
+            </div>
             <input type="submit" value="絞込">
         </div>
     </form>
-    <a href="/edit/1">編集画面遷移（id=1）</a>
     <div class="task-area" th:each="task : ${tasks}">
         <p th:text="${choices[task.status]+'タスク'}"></p>
         <div>
