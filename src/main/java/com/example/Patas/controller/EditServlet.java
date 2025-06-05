@@ -2,6 +2,7 @@ package com.example.Patas.controller;
 
 import com.example.Patas.controller.form.TaskForm;
 import com.example.Patas.service.EditService;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -30,7 +31,7 @@ public class EditServlet {
                                  RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
 
-        if (taskId != null && taskId.matches("^[0-9]+$]")) {
+        if (!StringUtils.isBlank(taskId) && taskId.matches("^[0-9]*$")){
             TaskForm taskForm = new TaskForm();
             int id = Integer.parseInt(taskId);
             TaskForm editData = editService.editTask(id);
