@@ -43,10 +43,12 @@
                 <button type="submit" onclick="return confirm('変更しますか？');">変更</button>
             </div>
         </form>
-        <div th:if="${#dates.date(#dates.createNow()).isAfter(#dates.date(tasks.limitDate))}">
-            <p>今日の日付はターゲットの日付よりも後です。</p>
+        <div class="limit-before" th:if="${today ge #dates.format(task.limitDate, 'yyyy-MM-dd')}">
+            <p th:text="${#strings.substring(task.limitDate, 0, 11)}"></p>
         </div>
-        <p th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></p>
+        <div class="limit-after" th:if="${today lt #dates.format(task.limitDate, 'yyyy-MM-dd')}">
+            <p th:text="${#strings.substring(task.limitDate, 0, 11)}"></p>
+        </div>
         <div class="edit-button">
             <a th:href="@{/edit/{id}(id=${task.id})}">
                 <input type="button" value="編集">
