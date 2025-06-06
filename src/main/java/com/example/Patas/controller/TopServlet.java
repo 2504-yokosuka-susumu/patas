@@ -56,6 +56,13 @@ public class TopServlet {
         choicesMap.put(4,"完了");
         choicesMap.put(5,"すべて");
 
+        //タスクステータスリスト作成
+        HashMap<Integer,String> statusChoices= new HashMap<Integer,String>();
+        statusChoices.put(1,"未着手");
+        statusChoices.put(2,"実行中");
+        statusChoices.put(3,"ステイ中");
+        statusChoices.put(4,"完了");
+
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
         String today = new SimpleDateFormat("yyyy-MM-dd").format(currentTimestamp);
         session.invalidate();
@@ -83,6 +90,7 @@ public class TopServlet {
         mav.addObject("tasks", taskData);
         mav.addObject("today", today);
         mav.addObject("choices", choicesMap);
+        mav.addObject("statusChoices", statusChoices);
         mav.addObject("start", start);
         mav.addObject("end", end);
 
