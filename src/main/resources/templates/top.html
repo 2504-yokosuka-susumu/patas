@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/css/style.css}" rel="styleSheet">
@@ -43,13 +43,10 @@
                 <button type="submit" onclick="return confirm('変更しますか？');">変更</button>
             </div>
         </form>
-
-        <div class="limit-before" th:if="${#dates.date(today).isBefore(#dates.date(task.limitDate))}">
-            <p th:text="${#strings.substring(task.limitDate, 0, 11)}"></p>
+        <div th:if="${#dates.date(#dates.createNow()).isAfter(#dates.date(tasks.limitDate))}">
+            <p>今日の日付はターゲットの日付よりも後です。</p>
         </div>
-        <div class="limit-after" th:if="${#dates.date(today).isAfter(#dates.date(task.limitDate))}">
-            <p th:text="${#strings.substring(task.limitDate, 0, 11)}"></p>
-        </div>
+        <p th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></p>
         <div class="edit-button">
             <a th:href="@{/edit/{id}(id=${task.id})}">
                 <input type="button" value="編集">
