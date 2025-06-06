@@ -6,8 +6,7 @@ import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,13 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class EditServlet {
     @Autowired
     EditService editService;
+    @Autowired
+    public SmartValidator validator;
 
     /*
      *編集画面表示
@@ -54,17 +52,23 @@ public class EditServlet {
 
     @PostMapping("/update/{id}")
     public ModelAndView editTask(@PathVariable("id") Integer id,
-                                 @ModelAttribute("formModel") @Validated TaskForm task, BindingResult result){
+                                 @ModelAttribute("formModel") TaskForm taskForm, BindingResult result){
+        TaskForm replaceTaskForm = taskForm;
+        String replaceContent = replaceTaskForm.getContent();
+        replaceContent = replaceContent.replaceFirst("^[\\s　]+", "").replaceFirst("[\\s　]+$", "");
+        replaceContent = replaceContent.replaceAll("\\r\\n|\\r|\\n", "");
+        replaceTaskForm.setContent(replaceContent);
 
+        validator.validate(replaceTaskForm, result);
         if(result.hasErrors()){
             ModelAndView mav = new ModelAndView();
 
-            mav.addObject("formModel", task);
+            mav.addObject("formModel", taskForm);
             mav.setViewName("/edit");
             return mav;
         }else {
-            task.setId(id);
-            editService.saveTask(task);
+            taskForm.setId(id);
+            editService.saveTask(taskForm);
 
             return new ModelAndView("redirect:/");
         }
