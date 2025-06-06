@@ -21,9 +21,12 @@ public class EditService {
 
         List<Task> results = new ArrayList<>();
         results.add((Task) taskRepository.findById(id).orElse(null));
-        List<TaskForm> tasks = setTaskForm(results);
-
-        return tasks.get(0);
+        if(results != null) {
+            List<TaskForm> tasks = setTaskForm(results);
+            return tasks.get(0);
+        }else{
+            return null;
+        }
     }
 
     private List<TaskForm> setTaskForm(List<Task> results) {
