@@ -11,8 +11,7 @@ import java.util.Date;
 
 @Data
 public class TaskForm {
-    @NotNull(message = "不正なパラメータです")
-//    @Pattern(regexp = "![0-9]*", message = "不正なパラメータです")
+
     private int id;
 
     @NotBlank(message = "タスクを入力してください")

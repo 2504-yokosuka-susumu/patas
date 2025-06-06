@@ -18,7 +18,7 @@ public class ChangeService {
      */
     public void saveTask(TaskForm reqTask) {
         Task saveTask = setTaskEntity(reqTask);
-        taskRepository.save(saveTask);
+        taskRepository.updateStatusById(saveTask.getId(), saveTask.getStatus());
     }
 
     /*
@@ -30,7 +30,6 @@ public class ChangeService {
         task.setContent(reqTask.getContent());
         task.setStatus(reqTask.getStatus());
         task.setLimitDate(reqTask.getLimitDate());
-        task.setCreatedDate(reqTask.getCreatedDate());
         task.setUpdatedDate(new Date());
         return task;
     }
