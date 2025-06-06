@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1>ToDo</h1>
+    <th:block th:if="${errorMessage != null && !errorMessage.isEmpty()}">
+        <span th:text="${errorMessage}" style="color:red"></span>
+    </th:block>
     <div>
         本日の日付<p th:text="${today}"></p>
     </div>
@@ -36,8 +39,8 @@
                     <option th:each="choice : ${choices}" th:value="${choice.key}"
                             th:text="${choice.value}" th:selected="${choice.key == task.status}"></option>
                 </select>
-                <input type="hidden" th:value="${task.id}" name="id">
-                <input type="submit" value="変更">
+                <input type="hidden" value="${task.id}" name="id">
+                <button type="submit" onclick="return confirm('変更しますか？');">変更</button>
             </div>
         </form>
 
@@ -50,9 +53,9 @@
             </a>
         </div>
         <div class="delete-button">
-            <a th:href="@{/delete/{id}(id=${task.id})}" th:method="delete">
-                <input type="button" value="削除">
-            </a>
+            <form th:action="@{/delete/{id}(id=${task.id})}" th:method="delete">
+                <button type="submit" onclick="return confirm('削除しますか？');">削除</button>
+            </form>
         </div>
     </div>
 </body>
