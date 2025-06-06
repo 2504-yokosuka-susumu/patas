@@ -18,7 +18,7 @@ public class ChangeService {
      */
     public void saveTask(TaskForm reqTask) {
         Task saveTask = setTaskEntity(reqTask);
-        taskRepository.updateStatusById(saveTask.getId(), saveTask.getStatus());
+        taskRepository.updateStatusAndUpdatedDateById(saveTask.getId(), saveTask.getStatus(), new Date());
     }
 
     /*

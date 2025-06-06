@@ -1,7 +1,6 @@
 package com.example.Patas.repository;
 
 import com.example.Patas.repository.entity.Task;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,6 +22,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     // Queryを用いた特定のカラムのUpdate処理
     @Modifying
     @Transactional
-    @Query("UPDATE Task e SET e.status =:status WHERE e.id = :id")
-    public void updateStatusById(@Param("id") Integer id, @Param("status") Integer status);
+    @Query("UPDATE Task e SET e.status =:status, e.updatedDate =:updatedDate WHERE e.id = :id")
+    public void updateStatusAndUpdatedDateById(@Param("id") Integer id, @Param("status") Integer status, @Param("updatedDate") Date updatedDate);
 }
