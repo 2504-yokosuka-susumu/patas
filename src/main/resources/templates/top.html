@@ -36,7 +36,7 @@
         <form action="/change" method="post">
             <div class="change-form">
                 <select name="status">
-                    <option th:each="choice : ${choices}" th:value="${choice.key}"
+                    <option th:each="choice : ${statusChoices}" th:value="${choice.key}"
                             th:text="${choice.value}" th:selected="${choice.key == task.status}"></option>
                 </select>
                 <input type="hidden" th:value="${task.id}" name="id">
