@@ -142,3 +142,10 @@ display: flex;
 justify-content: start;
 vertical-align: middle;
 }
+
+.limit-before{
+    background-color: red;
+}
+.limit-after{
+    background-color: yellow;
+}
