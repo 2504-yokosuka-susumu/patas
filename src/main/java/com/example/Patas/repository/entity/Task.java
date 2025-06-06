@@ -1,11 +1,6 @@
 package com.example.Patas.repository.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
@@ -23,14 +18,14 @@ public class Task {
     private String content;
 
     @Column
-    private int status;
+    private Integer status;
 
-    @Column
+    @Column(name = "limit_date")
     private Date limitDate;
 
-    @Column
+    @Column(insertable = false, updatable = false, name="created_date")
     private Date createdDate;
 
-    @Column
+    @Column(insertable = false, updatable = false, name="updated_date")
     private Date updatedDate;
 }

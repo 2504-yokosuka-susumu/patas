@@ -130,3 +130,22 @@ label {
 	margin-left: 10px;
 	color: red;
 }
+
+.task-area {
+display: flex;
+justify-content: start;
+vertical-align: middle;
+}
+
+.form-area{
+display: flex;
+justify-content: start;
+vertical-align: middle;
+}
+
+.limit-before{
+    background-color: #FF97C2;
+}
+.limit-after{
+    background-color: #FFFF88;
+}

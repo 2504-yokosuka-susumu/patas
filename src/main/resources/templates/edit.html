@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link th:href="@{/css/style.css}" rel="styleSheet">
+    <title>タスク編集</title>
 </head>
 <body>
-
+<div class="main-contents">
+    <form th:method="post" th:action="@{/update/{id}(id=${formModel.id})}" th:object="${formModel}">
+        <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" style="color: red"></div>
+        <div th:if="${#fields.hasErrors('limitDate')}" th:errors="*{limitDate}" style="color: red"></div>
+        <div class="form-area">
+            <label>タスク編集</label>
+            <textarea class="tweet-box" th:field="*{content}" size="20" maxlength="200" /></textarea><br/>
+            <label>タスク期限</label>
+            <input type="date" th:field="*{limitDate}" />
+            <input type="hidden" th:field="*{status}">
+            <input type="submit" value="編集" />
+        </div>
+    </form>
+</div>
+<div class="footer-contents">
+    <a href="/">戻る</a>
+</div>
 </body>
 </html>

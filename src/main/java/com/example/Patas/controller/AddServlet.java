@@ -2,10 +2,10 @@ package com.example.Patas.controller;
 
 import com.example.Patas.controller.form.TaskForm;
 import com.example.Patas.service.AddService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class AddServlet {
     @Autowired
     AddService addService;
+    @Autowired
+    public SmartValidator validator;
 
     /*
      * タスク追加画面表示
@@ -35,15 +37,23 @@ public class AddServlet {
      * タスク追加処理
      */
     @PostMapping("/add")
-    public ModelAndView addContent(@ModelAttribute("formModel") @Valid TaskForm taskForm,
+    public ModelAndView addContent(@ModelAttribute("formModel") TaskForm taskForm,
                                    BindingResult result, ModelAndView mav) {
+        TaskForm replaceTaskForm = taskForm;
+        String replaceContent = replaceTaskForm.getContent();
+        replaceContent = replaceContent.replaceFirst("^[\\s　]+", "").replaceFirst("[\\s　]+$", "");
+        replaceContent = replaceContent.replaceAll("\\r\\n|\\r|\\n", "");
+        replaceTaskForm.setContent(replaceContent);
+
+        validator.validate(replaceTaskForm, result);
+
         if(result.hasErrors()) {
             // 画面遷移先を指定
             mav.setViewName("/new");
             return mav;
         } else {
             // 投稿をテーブルに格納
-            //addService.saveReport(taskForm);
+            addService.saveTask(taskForm);
             // rootへリダイレクト
             return new ModelAndView("redirect:/");
         }
