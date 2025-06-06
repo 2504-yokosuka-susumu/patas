@@ -54,6 +54,7 @@ public class TopServlet {
         choicesMap.put(2,"実行中");
         choicesMap.put(3,"ステイ中");
         choicesMap.put(4,"完了");
+        choicesMap.put(5,"すべて");
 
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
         String today = new SimpleDateFormat("yyyy-MM-dd").format(currentTimestamp);

@@ -35,11 +35,12 @@ public class TaskService {
         Date endDate = sdf.parse(end);
 
         List<Task> results = null;
-        if(StringUtils.isBlank(taskForm.getContent()) && (taskForm.getStatus() == null)) {
+        if(StringUtils.isBlank(taskForm.getContent())
+                && ((taskForm.getStatus() == null) || taskForm.getStatus() == 0 || taskForm.getStatus() == 5)) {
             results = taskRepository.findTop9ByLimitDateBetweenOrderByLimitDateAsc(startDate, endDate);
         } else if(StringUtils.isBlank(taskForm.getContent())) {
             results = taskRepository.findTop9ByLimitDateBetweenAndStatusOrderByLimitDateAsc(startDate, endDate, taskForm.getStatus());
-        } else if ((taskForm.getStatus() == null)){
+        } else if ((taskForm.getStatus() == null || taskForm.getStatus() ==0 || taskForm.getStatus() == 5)){
             results = taskRepository.findTop9ByLimitDateBetweenAndContentOrderByLimitDateAsc(startDate, endDate, taskForm.getContent());
         } else {
             results = taskRepository.findTop9ByLimitDateBetweenAndContentAndStatusOrderByLimitDateAsc(startDate, endDate, taskForm.getContent(), taskForm.getStatus());
