@@ -6,6 +6,7 @@ import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class EditServlet {
@@ -24,8 +28,8 @@ public class EditServlet {
     /*
      *編集画面表示
      */
-    @GetMapping("/edit/{id}")
-    public ModelAndView editTask(@PathVariable("id") String taskId,
+    @GetMapping({"/edit", "/edit/", "/edit/{id}"})
+    public ModelAndView editTask(@PathVariable(name = "id", required = false) String taskId,
                                  RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
 
@@ -48,7 +52,29 @@ public class EditServlet {
         }
         return mav;
     }
-
+//        validator.validate(id, result);
+//
+//        if(result.hasErrors()){
+//            List<String> errorMessages = new ArrayList<String>();
+//            //resultからデフォルトのエラーメッセージを取得
+//            //入っているerrorsの分だけ回してListに詰める
+//            for(ObjectError error : result.getAllErrors()){
+//                errorMessages.add(error.getDefaultMessage());
+//            }
+//            redirectAttributes.addFlashAttribute("error", errorMessages);
+//            mav.setViewName("redirect:/");
+//            return mav;
+//        }
+//        TaskForm editData = editService.editTask(id);
+//        if (editData != null) {
+//                mav.setViewName("/edit");
+//                //selectしてきた編集対象の投稿データを保管
+//                mav.addObject("formModel", editData);
+//                String error = "不正なパラメータです";
+//                redirectAttributes.addFlashAttribute("error", error);
+//        }
+//        return mav;
+//    }
 
     @PostMapping("/update/{id}")
     public ModelAndView editTask(@PathVariable("id") Integer id,
