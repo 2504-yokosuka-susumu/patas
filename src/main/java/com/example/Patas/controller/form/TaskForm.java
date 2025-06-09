@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Data
 public class TaskForm {
-
+    @NotNull
     private int id;
     @NotBlank(message = "タスクを入力してください")
     @Length(max= 140, message = "タスクは140文字以内で入力してください")
