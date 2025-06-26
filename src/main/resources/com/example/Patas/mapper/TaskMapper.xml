@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Patas.mapper.TaskMapper">
+
+
+    <resultMap id="taskMapper" type="com.example.Patas.repository.entity.Task" autoMapping="true">
+        <result column="id" property="id" />
+        <result column="content" property="content" />
+        <result column="status" property="status" />
+        <result column="limit_date" property="limitDate"/>
+        <result column="created_date" property="createdDate"/>
+        <result column="updated_date" property="updatedDate"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="taskMapper" resultType="com.example.Patas.repository.entity.Task">
+        select * from tasks;
+    </select>
+
+    <select id="selectById" resultMap="taskMapper" resultType="com.example.Patas.repository.entity.Task">
+        select * from tasks where id= #{id};
+    </select>
+
+    <insert id="insert">
+        insert into tasks (
+            content,
+            status,
+            limit_date
+        ) values (
+            #{content},
+            #{status},
+            #{limitDate}
+        )
+    </insert>
+
+    <update id="updateById">
+        update tasks set
+            content=#{content},
+            status=#{status},
+            limit_date=#{limitDate}
+        where id =#{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from tasks
+        where id =#{id}
+    </delete>
+
+
+
+
+</mapper>

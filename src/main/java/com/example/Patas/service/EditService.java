@@ -2,7 +2,7 @@ package com.example.Patas.service;
 
 
 import com.example.Patas.controller.form.TaskForm;
-import com.example.Patas.repository.TaskRepository;
+import com.example.Patas.mapper.TaskMapper;
 import com.example.Patas.repository.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,13 +13,14 @@ import java.util.List;
 
 @Service
 public class EditService {
+
     @Autowired
-    TaskRepository taskRepository;
+    TaskMapper taskMapper;
 
     public TaskForm editTask(Integer id) {
 
         List<Task> results = new ArrayList<>();
-        results.add((Task) taskRepository.findById(id).orElse(null));
+        results.add(taskMapper.selectById(id));
         if(results.contains(null)) {
             return null;
         }else{
@@ -46,7 +47,7 @@ public class EditService {
 
     public void saveTask(TaskForm reqTask) {
         Task saveTask = setReportEntity(reqTask);
-        taskRepository.save(saveTask);
+        taskMapper.updateById(saveTask);
     }
 
     /*

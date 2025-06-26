@@ -1,6 +1,6 @@
 package com.example.Patas.service;
 
-import com.example.Patas.repository.TaskRepository;
+import com.example.Patas.mapper.TaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 public class DeleteService {
 
     @Autowired
-    TaskRepository taskRepository;
+    TaskMapper taskMapper;
 
     public void delete(Integer id) {
-        taskRepository.deleteById(id);
+        taskMapper.deleteById(id);
     }
 }

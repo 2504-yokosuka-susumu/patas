@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,11 +36,6 @@ public class TopServlet {
                             @RequestParam(value = "end", required = false)String end,
                             Model model) throws ParseException {
         ModelAndView mav = new ModelAndView();
-
-//        if(tasksForm == null){
-//            // 返信form用の空のentityを準備
-//            TaskForm tasksForm = new TaskForm();
-//        }
 
         // 投稿を全件取得
         List<TaskForm> taskData = taskService.findAllTask();
@@ -81,7 +75,8 @@ public class TopServlet {
         }
 
         // 投稿を取得
-        taskData = taskService.findSerchTask(start, end, tasksForm);
+//        taskData = taskService.findSerchTask(start, end, tasksForm);
+        taskData = taskService.findAllTask();
 
         // 画面遷移先を指定
         mav.setViewName("/top");
